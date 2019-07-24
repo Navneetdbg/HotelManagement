@@ -1,0 +1,49 @@
+﻿@model HotelManegementSystem.Areas.DashBoard.ViewModel.AccomodationTypesListingModels
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div class="col col-lg-12">
+        <h3>Accomodation Types</h3>
+        <hr />
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col col-lg-12">
+
+        <form>
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Search" value="@Model.Search" required>
+
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-primary" type="submit"><i class="fas fa-search mr-2"></i>Search</button>
+                    <a class="btn btn-outline-secondary" href="@Url.Action("Index", "AccomodationTypes")"><i class="fas fa-redo mr-2"></i>Reset</a>
+                    <button class="btn-data btn btn-outline-success" type="button" data-toggle="modal" data-target="#ActionModel" data-href="@Url.Action("Action", "AccomodationTypes")"><i class="fas fa-plus-circle mr-2"></i>Create</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col col-lg-12">
+        @{ Html.RenderPartial("Listing", Model); }
+    </div>
+</div>
+
+<div class="modal fade" id="ActionModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        @*@{ Html.RenderAction("Action"); }*@
+    </div>
+</div>
+<script>
+    $(".btn-data").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href")
+
+        }).done(function (response) {
+            $("#ActionModel .modal-dialog").html(response);
+        });
+    });
+</script>

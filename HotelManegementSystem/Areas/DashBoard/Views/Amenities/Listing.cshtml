@@ -1,0 +1,49 @@
+﻿@model HotelManegementSystem.Areas.DashBoard.ViewModel.AmenityListingModel
+
+@if (Model != null && Model.Amenities != null && Model.Amenities.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Amenities)
+            {
+
+                <tr>
+
+                    <td>@item.Name</td>
+                    <td>
+                        @if (item.Description.Length > 60)
+                        {
+                            @item.Description.Substring(0, 60)
+                        }
+                        else
+                        {
+                            @item.Description
+                        }
+                    </td>
+                    <td>
+                        <button type="button" data-href="@Url.Action("Action", "Amenities" , new { Id =  item.Id})" data-toggle="modal" data-target="#ActionModel" class="btn-data btn btn-warning"> <i class="fas fa-edit mr-2"></i>Edit</button>
+                        <button type="button" class="btn-data btn btn-danger" data-href="@Url.Action("Delete", "Amenities" , new { Id =  item.Id})" data-toggle="modal" data-target="#ActionModel"> <i class="fas fa-trash mr-2"></i>Delete</button>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+}
+else
+{
+
+    <div class="alert alert-warning" role="alert">
+        No Record Found !!!
+    </div>
+}

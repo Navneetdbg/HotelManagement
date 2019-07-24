@@ -1,0 +1,121 @@
+﻿
+@model HotelManegementSystem.Areas.DashBoard.ViewModel.AccomodationPackageAmnetiesVM
+
+@if (Model != null)
+{
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                <span>Amenities </span>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            @if (Model.CurrentAmenities != null && Model.CurrentAmenities.Count() > 0)
+            {
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Current Amenities</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CurrentAmenities)
+                        {
+                            <tr>
+                                <td>@item.Amenity.Name</td>
+
+                                <td>
+                                    <button type="button" class="btnRoles btn btn-danger" data-href="@Url.Action("AmenitiesAction", "AccomodationPackages", new { AccomodationPackageId = Model.Id , AmentiesId = item.Amenity.Id, isDelete = true })"> <i class="fas fa-briefcase mr-2"></i>Delete Roles</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    Current Accomodation-Package Have No Amenities!!!
+                </div>
+            }
+            <hr />
+
+            @if (Model.Amenities != null && Model.Amenities.Count() > 0)
+            {
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Assign New Amenities</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Amenities)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>
+                                    <button type="button" class="btnRoles btn btn-success" data-href="@Url.Action("AmenitiesAction", "AccomodationPackages", new {AccomodationPackageId = Model.Id , AmentiesId = item.Id })"> <i class="fas fa-briefcase mr-2"></i>Assign Roles</button>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    No More Amenities Found !!!
+                </div>
+            }
+        </div>
+        <div class="modal-footer">
+
+            <button type="button" id="Close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+
+    $(".btnRoles").click(function () {
+        $.ajax({
+            url: $(this).attr("data-href"),
+            type: "POST"
+
+        }).done(function (response) {
+            
+            if (response.Success) {
+                $.ajax({
+                    url: "@Url.Action("AddAmneties", "AccomodationPackages", new { Id = Model.Id})"
+
+                }).done(function (response) {
+                    $("#ActionModel .modal-dialog").html(response);
+                });
+            }
+            else {
+                alert(response.Message);
+            }
+        });
+    });
+
+    @*$("#Close").click(function () {
+        $.ajax({
+            url:"@Url.Action("Index","Users")"
+        });
+    });*@
+</script>
+
+

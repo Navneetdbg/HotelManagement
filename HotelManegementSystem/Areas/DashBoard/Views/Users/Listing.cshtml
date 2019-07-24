@@ -1,0 +1,105 @@
+﻿@model HotelManegementSystem.Areas.DashBoard.ViewModel.UsersListingModels
+@if (Model != null && Model.Users != null && Model.Users.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th scope="col">Email</th>
+                <th scope="col">FullName</th>
+                <th scope="col">Roles</th>
+                
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id="#display">
+            @foreach (var item in Model.Users)
+            {
+            <tr>
+
+                <td>@item.Email</td>
+               
+                <td>@item.FullName</td>
+                <td>@item.Roles.Count</td>
+                <td>
+                    <button type="button" data-href="@Url.Action("Action", "Users" , new { Id =  item.Id})" data-toggle="modal" data-target="#ActionModel" class="btn-data btn btn-warning"> <i class="fas fa-edit mr-2"></i>Edit</button>
+                    <button type="button" class="btn-data btn btn-danger" data-href="@Url.Action("Delete", "Users" , new { Id =  item.Id})" data-toggle="modal" data-target="#ActionModel"> <i class="fas fa-trash mr-2"></i>Delete</button>
+                    <button type="button" class="btn-data btn btn-info" data-href="@Url.Action("UserRoles", "Users" , new { Id =  item.Id})" data-toggle="modal" data-target="#ActionModel"> <i class="fas fa-users mr-2"></i>Roles</button>
+                </td>
+            </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+    if (Model.pager.EndPage > 1)
+    {
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                @if (Model.pager.CurrenPage > 1)
+                {
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index","Users")"><<</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","Users",new {pageNo= Model.pager.CurrenPage - 1})"><</a>
+
+                    </li>
+                }
+                @for (var page = Model.pager.StartPage; page <= Model.pager.EndPage; page++)
+                {
+
+                    <li class="page-item @(page == Model.pager.CurrenPage ? "active": "") ">
+                        <a class="page-link" href="@Url.Action("Index","Users",new {pageNo= page})">@page</a>
+
+                    </li>
+                }
+                @if (Model.pager.CurrenPage < Model.pager.TotalPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","Users",new {pageNo= Model.pager.CurrenPage +1})">></a>
+                    </li>
+                    <li class="page-item"> <a class="page-link" href="@Url.Action("Index","Users",new {pageNo= Model.pager.EndPage})">>></a></li>
+
+                }
+
+
+            </ul>
+        </nav>
+
+
+
+    }
+}
+else
+{
+
+    <div class="alert alert-warning" role="alert">
+        No Record Found !!!
+    </div>
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+@*<script>
+
+        $(".pageBtn").click(function () {
+            debugger;
+                    $.ajax({
+
+                        url: '@Url.Action("Index", "AccomodationPackages")',
+                        data: {
+                            pageNo: $(this).attr("data-pagevalue")
+                        }
+
+
+                    }).done(function (response) {
+
+                        $(".display").append(response);
+
+
+                    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    });
+
+        });
+    </script>*@

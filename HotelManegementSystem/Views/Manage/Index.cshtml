@@ -1,0 +1,62 @@
+﻿@model HotelManegementSystem.Models.IndexViewModel
+@{
+    ViewBag.Title = "Manage";
+}
+
+<div class="block-30 block-30-sm item" style="background-image: url('/Content/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-10">
+            <span class="subheading-sm">Manage</span>
+            <h2 class="heading">Manage Your Account</h2>
+        </div>
+    </div>
+</div>
+</div>
+<hr />
+<div class="site-section">
+
+    <div class="container">
+        <div class="errorDiv" style="color:red;"></div>
+        <div class="row block-9">
+            <div class="col-md-8 pr-md-5">
+
+                <h4 class="text" style="display:block">Booking Detail</h4>
+               <table class="table table-striped">
+                   <thead>
+                       <tr style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">
+                           <th>#Id</th>
+                           <th>Check-In</th>
+                           <th>Check-out</th>
+                           <th>Detail</th>
+                       </tr>
+                   </thead>
+                   <tbody>
+                       
+                           @foreach (var item in Model.Bookings)
+                           {
+                       <tr>
+                           <td><a href="@Url.Action("Details","Manage", new { Id = item.Id})">@item.Id </a></td>
+                           
+                           <td>@item.FromDate</td>
+
+                           <td>@item.EndDate</td>
+
+                       </tr>   
+                           }
+                       
+                   </tbody>
+               </table>
+            </div>
+
+            <div class="col-md-4">
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                       <a href="@Url.Action("ChangePassword","Manage")">Change Your Password</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,133 @@
+﻿@model HotelManegementSystem.Areas.DashBoard.ViewModel.AccomodationPackagesModels
+
+@if (Model != null)
+{
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">@if (Model.Id > 0)
+            {<span>Edit Accomodation</span> }
+            else
+            { <span>Add Accomodation </span>}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="MyForm" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Accomodation Type</label>
+                    <select class="form-control" name="AccomodationTypeId">
+                        @if (Model.AccomodationTypes != null)
+                        {
+                            foreach (var item in Model.AccomodationTypes)
+                            {
+                                <option value="@item.Id" @(item.Id == Model.AccomodationTypeId ? "Selected" : string.Empty)>@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Name</label>
+                    <input type="text" class="form-control" name="Name" id="Name" placeholder="Enter Name" value="@Model.Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Number Of Rooms</label>
+                    <input type="text" class="form-control" id="NoOfRooms" name="NoOfRooms" placeholder="Number Of Rooms" value="@Model.NoOfRooms">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Rate Per Night</label>
+                    <input type="text" class="form-control" id="PerNight" name="PerNight" placeholder="Rate Per Night" value="@Model.PerNight">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Details</label>
+                    <textarea type="text" class="form-control" id="Details" name="Details" placeholder="Details">@Model.Details</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Image</label>
+                    <input type="file" class="form-control" id="Image" name="Image" multiple>
+                    <input type="hidden" id="PicTureIds" name="PicTureIds" />
+                </div>
+                <div id="ImageArea">
+                    @if (Model.AccomodationPackageImages != null && Model.AccomodationPackageImages.Count > 0)
+                    {
+                        foreach (var item in Model.AccomodationPackageImages)
+                        {
+                            <img src="/Content/images/Site/@item.Image.Url" data-id="@item.Image.Id" class="img-fluid" style="width:215px" onclick="Remove(this)" />
+                        }
+                    }
+                </div>
+            </form>
+            <div class="errorDiv">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="actionButton" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+}
+<div id="imageTemplate">
+    <img src="" data-id="" class="img-fluid" style="width:215px" onclick="Remove(this)"/>
+</div>
+<script>
+    $("#actionButton").click(function () {
+        
+        var PictureIds = [];
+        $("#ImageArea img").each(function () {
+            var PicId = $(this).attr("data-id");
+            
+            PictureIds.push(PicId);
+        });
+        $("#PicTureIds").val(PictureIds.join());
+        
+        $.ajax({
+            url: '@Url.Action("Action", "AccomodationPackages")',
+            method: 'POST',
+
+            data: $("#MyForm").serialize()
+        }).done(function (response) {
+            if (response.Success) {
+                location.reload();
+            } else {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+
+    $("#Image").change(function () {
+       
+        var images = this.files;
+        var formData = new FormData();
+        for (var i = 0; i < images.length; i++) {
+            formData.append("image", images[i]);
+        }
+        $.ajax({
+            url: '@Url.Action("Images", "DashBoard")',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function (response) {
+           
+            for (var i = 0; i < response.length; i++) {
+                var pic = response[i];
+                var $imageHtml = $("#imageTemplate").clone();
+                $imageHtml.find("img").attr("src", "/Content/images/Site/" + pic.Url);
+                debugger;
+                $imageHtml.find("img").attr("data-id",  pic.Id);
+                $("#ImageArea").append($imageHtml.html());
+               
+            }
+            
+        });
+    });
+
+    function Remove(element) {
+        element.remove();
+    }
+</script>

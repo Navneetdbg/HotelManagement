@@ -1,0 +1,105 @@
+﻿@model HotelManegementSystem.Areas.DashBoard.ViewModel.BookingListingVM
+@if (Model != null && Model.Bookings != null && Model.Bookings.Count() > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+
+                <th scope="col">#Id</th>
+               
+                <th scope="col">Form Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody id="#display">
+            @foreach (var item in Model.Bookings)
+            {
+                <tr>
+
+                    <td>@item.Id</td>
+                 
+                    <td>@item.FromDate</td>
+                    <td>@item.EndDate</td>
+                    <td>
+                        <button type="button" data-href="@Url.Action("Action", "AccomodationPackages" , new { Id =  item.Id})" data-toggle="modal" data-target="#ActionModel" class="btn-data btn btn-warning"> <i class="fas fa-edit mr-2"></i>Details</button>
+                        <button type="button" class="btn-data btn btn-danger" data-href="@Url.Action("Delete", "AccomodationPackages" , new { Id =  item.Id})" data-toggle="modal" data-target="#ActionModel"> <i class="fas fa-trash mr-2"></i>Delete</button>
+                        
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+
+    @*if (Model.Pager.EndPage > 1)
+    {
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+
+                @if (Model.Pager.CurrenPage > 1)
+                {
+                    <li class="page-item"><a class="page-link" href="@Url.Action("Index","AccomodationPackages")"><<</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages",new {pageNo= Model.Pager.CurrenPage - 1})"><</a>
+
+                    </li>
+                }
+                @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                {
+
+                    <li class="page-item @(page == Model.Pager.CurrenPage ? "active": "") ">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages",new {pageNo= page})">@page</a>
+
+                    </li>
+                }
+                @if (Model.Pager.CurrenPage < Model.Pager.TotalPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="@Url.Action("Index","AccomodationPackages",new {pageNo= Model.Pager.CurrenPage +1})">></a>
+                    </li>
+                    <li class="page-item"> <a class="page-link" href="@Url.Action("Index","AccomodationPackages",new {pageNo= Model.Pager.EndPage})">>></a></li>
+
+                }
+
+
+            </ul>
+        </nav>
+
+
+
+    }*@
+}
+else
+{
+
+    <div class="alert alert-warning" role="alert">
+        No Record Found !!!
+    </div>
+}
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+@*<script>
+
+        $(".pageBtn").click(function () {
+            debugger;
+                    $.ajax({
+
+                        url: '@Url.Action("Index", "AccomodationPackages")',
+                        data: {
+                            pageNo: $(this).attr("data-pagevalue")
+                        }
+
+
+                    }).done(function (response) {
+
+                        $(".display").append(response);
+
+
+                    }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+
+                    });
+
+        });
+    </script>*@

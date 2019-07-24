@@ -1,0 +1,16 @@
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\HmsEntity.dll
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\HmsEntity.pdb
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\obj\Debug\HmsEntity.csprojAssemblyReference.cache
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\obj\Debug\HmsEntity.csproj.CoreCompileInputs.cache
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\obj\Debug\HmsEntity.dll
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\obj\Debug\HmsEntity.pdb
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\HmsEntity.dll.config
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\EntityFramework.dll
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\EntityFramework.xml
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+C:\Users\Navneet\source\repos\HotelManegementSystem\HmsEntity\obj\Debug\HmsEntity.csproj.CopyComplete

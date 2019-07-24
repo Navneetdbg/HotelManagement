@@ -1,0 +1,86 @@
+﻿@model HotelManegementSystem.Areas.DashBoard.ViewModel.UsersModels
+
+@if (Model != null)
+{
+
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                @if (Model.Id != null)
+                {<span>Edit User</span> }
+                else
+                { <span>Add User </span>}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form id="MyForm" method="post">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                @*<div class="form-group">
+            <label for="exampleInputEmail1"> Users</label>
+            <select class="form-control" name="AccomodationPackageId">
+                @if (Model. != null)
+                {
+                    foreach (var item in Model.AccomodationPackages)
+                    {
+                        <option value="@item.Id" @(item.Id == Model.AccomodationPackageId ? "Selected" : string.Empty)>@item.Name</option>
+                    }
+                }
+            </select>
+        </div>*@
+                <div class="form-group">
+                    <label for="exampleInputEmail1">FullName</label>
+                    <input type="text" class="form-control" name="FullName" id="FullName" placeholder="Enter Name" value="@Model.FullName">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Email</label>
+                    <input type="text" class="form-control" id="Email" name="Email" placeholder="Email" value="@Model.Email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">UserName</label>
+                    <input type="text" class="form-control" id="UserName" name="UserName" placeholder="UserName" value="@Model.UserName">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword1">City</label>
+                    <input type="text" class="form-control" id="City" name="City" placeholder="City" value="@Model.City">
+                </div> <div class="form-group">
+                    <label for="exampleInputPassword1">Country</label>
+                    <input type="text" class="form-control" id="Country" name="Country" placeholder="Country" value="@Model.Country">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Address</label>
+                    <textarea type="text" class="form-control" id="Address" name="Address" placeholder="Address">@Model.Address</textarea>
+                </div>
+            </form>
+            <div class="errorDiv">
+
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="actionButton" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+    </div>
+}
+
+<script>
+    $("#actionButton").click(function () {
+        $.ajax({
+            url: '@Url.Action("Action", "Users")',
+            method: 'POST',
+
+            data: $("#MyForm").serialize()
+        }).done(function (response) {
+            if (response.Success) {
+                location.reload();
+            } else {
+                $(".errorDiv").html(response.Message);
+            }
+        });
+    });
+</script>
+

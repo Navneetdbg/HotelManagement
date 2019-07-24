@@ -1,0 +1,69 @@
+﻿@model HmsEntity.Booking
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="block-30 block-30-sm item" style="background-image: url('/Content/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-10">
+                <span class="subheading-sm">Detials</span>
+                <h2 class="heading">Check Your Booking Details</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<hr />
+
+
+<div class="site-section">
+
+    <div class="container">
+        <div class="errorDiv" style="color:red;"></div>
+        <div class="row block-9">
+            <div class="col-md-10 pr-md-5">
+
+                <h4 class="text" style="display:block"> Booking Details</h4>
+
+                <label for="checkin">Id</label>
+                <div class="form-group field-icon-wrap">
+                    <h6>@Model.Id</h6>
+                </div>
+
+                <label for="checkin">Check In</label>
+                <div class="form-group field-icon-wrap">
+                    <h6>@Model.FromDate</h6>
+                </div>
+                <label for="checkin">Check out</label>
+                <div class="form-group field-icon-wrap">
+
+                    <h6>@Model.EndDate</h6>
+                </div>
+
+            </div>
+            <table class="table table-info">
+                <thead>
+                    <tr>
+                        <th>#Room No</th>
+                        <th>#Accomodation Package</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.BookingUsers)
+                    {
+                        <tr>
+
+                            <th>
+                                @item.Accomodation.Name
+                            </th>
+                            <th>
+                                @item.Accomodation.AccomodationPackage.Name
+                            </th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
